@@ -1,6 +1,6 @@
-NAME = weapon
+NAME = replace
 
-SRC = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
+SRC = main.cpp Replacer.cpp
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
