@@ -10,7 +10,7 @@ class Animal {
 	public:
 		Animal( void );
 		Animal( const Animal & old);
-		~Animal( void );
+		virtual	~Animal( void );
 		Animal& operator=(const Animal & old);
 
 		std::string getType( void );

@@ -23,5 +23,10 @@ int main( void )
 	l->makeSound();
 	wrong->makeSound();
 
+	delete meta;
+	delete j;
+	delete i;
+	delete wrong;
+	delete l;
 	return 0;
 }
