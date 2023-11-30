@@ -19,10 +19,10 @@ WrongAnimal::~WrongAnimal( void ) {
 	std::cout << "WrongAnimal destructor called" << std::endl;
 }
 
-// std::string WrongAnimal::getType( void )
-// {
-// 	return (this->type);
-// }
+std::string WrongAnimal::getType( void )
+{
+	return (this->type);
+}
 
 void WrongAnimal::makeSound( void ) {
 	std::cout << "!@#$#@$!@&-&-:#@" << std::endl;
