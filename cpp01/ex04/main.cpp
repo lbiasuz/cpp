@@ -9,6 +9,11 @@ int main(int argc, char **argv)
 		std::cout << "Wrong number of arguments" << std::endl;
 		return (1);
 	}
+	if (!argv[2][0])
+	{
+		std::cout << "Empty argument for lookup string" << std::endl;
+		return (1);
+	}
 	Replacer replacer(argv);
 	if (!replacer.replace(argv[1]))
 	{
