@@ -53,7 +53,7 @@ void Harl::complain(std::string str)
 			this->error();
 			break;
 		default:
-			std::cout << "[ Probably complaining about insignificant problems ] " << str << std::endl;
+			std::cout << "[ Probably complaining about insignificant problems ] " << std::endl;
 			break;
 	}
 }
