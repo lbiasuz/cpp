@@ -40,7 +40,7 @@ int Replacer::replace_inline( void )
 	{
 		this->_tmp.erase(index, this->_old.length());
 		this->_tmp.insert(index, this->_new);
-		index = this->_tmp.find(this->_old, index + this->_old.length());
+		index = this->_tmp.find(this->_old, index);
 	}
 	return (index != std::string::npos);
 }
