@@ -8,7 +8,11 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target)
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm & ref)
     : AForm(ref.getName(), ref.getSignGrade(), ref.getExecGrade()), target(ref.target) {}
 RobotomyRequestForm & RobotomyRequestForm::operator=(const RobotomyRequestForm & ref)
-    : AForm(ref.getName(), ref.getSignGrade(), ref.getExecGrade()), target(ref.target) { return (*this);}
+{
+	this->setSign(ref.getSign());
+	this->target = target;
+	return (*this);
+}
 RobotomyRequestForm::~RobotomyRequestForm(void) {}
 
 void	RobotomyRequestForm::execute(Bureaucrat const & executor) const {

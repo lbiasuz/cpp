@@ -7,7 +7,11 @@ PresidentialPardonForm::PresidentialPardonForm(std::string target)
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm & ref)
     : AForm(ref.getName(), ref.getSignGrade(), ref.getExecGrade()), target(ref.target) {}
 PresidentialPardonForm & PresidentialPardonForm::operator=(const PresidentialPardonForm & ref)
-    : AForm(ref.getName(), ref.getSignGrade(), ref.getExecGrade()), target(ref.target) { return (*this);}
+{
+	this->setSign(ref.getSign());
+	this->target = target;
+	return (*this);
+}
 PresidentialPardonForm::~PresidentialPardonForm(void) {}
 
 void	PresidentialPardonForm::execute(Bureaucrat const & executor) const {

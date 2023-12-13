@@ -67,7 +67,7 @@ void Bureaucrat::executeForm(AForm const & form) {
 	try {
 		form.execute(*this);
 		std::cout << "executed";
-	} catch (GradeTooLowException e){
+	} catch (GradeTooLowException & e){
 		std::cout << e.what() << std::endl;
 	}
 }

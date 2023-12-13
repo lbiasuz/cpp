@@ -1,4 +1,7 @@
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+
 #include <string>
 #include <iostream>
 
@@ -28,21 +31,13 @@ int	main(void) {
 
 	std::cout << "FORM TESTS" << std::endl;
 
-	try {
-		AForm form("Form", 160, 160);
-	} catch (AForm::GradeTooLowException & e) {
-		std::cerr << e.what();
-	}
-	try {
-		AForm form3("Form", 0, 0);
-	} catch (AForm::GradeTooHighException & e) {
-		std::cerr << e.what();
-	}
-	AForm form2("Form", 110, 110);
+	ShrubberyCreationForm form("Form");
+	form.beSigned(bur);
+	bur.executeForm(form);
+	PresidentialPardonForm form2("Bob");
 	bur.signForm(form2);
-	form2.beSigned(bur);
-	bur.promote(10);
-	form2.beSigned(bur);
-	std::cout << form2 << std::endl;
-	std::cout << bur << std::endl;
+	bur.executeForm(form2);
+	RobotomyRequestForm form3("ClapTrap");
+	bur.signForm(form3);
+	bur.executeForm(form3);
 }

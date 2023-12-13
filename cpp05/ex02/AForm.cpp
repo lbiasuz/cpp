@@ -1,7 +1,7 @@
 #include "AForm.hpp"
 #include <iostream>
 
-AForm::AForm(void) : name("Form"),signGrade(150), execGrade(150){
+AForm::AForm(void) : name("Form"), signGrade(150), execGrade(150){
 	this->sign = false;
 }
 
@@ -68,7 +68,7 @@ void		AForm::beSigned(Bureaucrat &bur) {
 }
 
 void	AForm::execute(Bureaucrat const & executor) const {
-	if (bur.getGrade() > this->execGrade || !this->getSign())
+	if (executor.getGrade() > this->execGrade || !this->getSign())
 		throw AForm::GradeTooLowException();
 }
 
