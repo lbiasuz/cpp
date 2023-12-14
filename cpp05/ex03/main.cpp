@@ -1,6 +1,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 #include <string>
 #include <iostream>
@@ -44,6 +45,19 @@ int	main(void) {
 		bur.signForm(form2);
 		bur.executeForm(form2);
 	} catch (AForm::GradeTooLowException & e) {
+		std::cout << e.what();
+	}
+
+	std::cout << "INTERN TESTS" << std::endl;
+
+	Intern intern;
+
+	try {
+		AForm *form = intern.makeForm("shrubbery creation", "World");
+		bur.signForm(*form);
+		bur.executeForm(*form);
+		delete form;
+	} catch (Intern::IncorrectFormName & e) {
 		std::cout << e.what();
 	}
 }
