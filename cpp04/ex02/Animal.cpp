@@ -23,7 +23,3 @@ std::string Animal::getType( void )
 {
 	return (this->type);
 }
-
-void Animal::makeSound( void ) {
-	std::cout << "!@#$#@$!@&-&-:#@" << std::endl;
-}

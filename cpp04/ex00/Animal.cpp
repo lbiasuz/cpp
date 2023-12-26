@@ -24,6 +24,6 @@ std::string Animal::getType( void )
 	return (this->type);
 }
 
-void Animal::makeSound( void ) {
+void Animal::makeSound( void ) const {
 	std::cout << "!@#$#@$!@&-&-:#@" << std::endl;
 }

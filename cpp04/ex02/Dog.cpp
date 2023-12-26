@@ -34,7 +34,7 @@ Brain& Dog::getBrain( void )
 	return (*this->brain);
 }
 
-void Dog::makeSound( void )
+void Dog::makeSound( void ) const
 {
 	std::cout << "WoOf WOof!" << std::endl;
 }
