@@ -9,9 +9,9 @@ class BitcoinExchange {
 	private:
 		std::map<std::string, float> entries;
 		BitcoinExchange(void);
-		bool valid_date(std::string date);
 
 	public:
+		bool valid_date(std::string date);
 		float search(std::string date);
 		BitcoinExchange(std::ifstream &in);
 		BitcoinExchange(const BitcoinExchange &old);

@@ -24,8 +24,19 @@ int	main(int argc, char **argv) {
 		std::stringstream ss(line);
 
 		ss >> date >> spacer >> value;
-		std::cout << date << " => " << value << " = ";
-		std::cout << exc.search(date) * static_cast<float>(std::strtod(value.c_str(), NULL)) << "\n";
+
+		float fv = static_cast<float>(std::strtod(value.c_str(), NULL));
+
+		if (!date.compare("date"))
+			continue;
+		if (!exc.valid_date(date))
+			std::cout << "Error: bad input => " << date << std::endl;
+		else if (fv < 0)
+			std::cout << "Error: not a positive number"<< std::endl;
+		else if (std::strtod(value.c_str(), NULL) > 2147483647.0)
+			std::cout << "Error: too large a number"<< std::endl;
+		else
+			std::cout << date << " => " << value << " = " << exc.search(date) * fv << "\n";
 	}
 	return (0);
 }

@@ -17,9 +17,9 @@ BitcoinExchange::BitcoinExchange(std::ifstream &in) {
 		if (pos > line.size())
 			throw std::runtime_error(std::string("Invalid data input"));
 		date = line.substr(0, pos);
-		value = line.substr(pos);
+		value = line.substr(pos + 1);
 		if (!this->valid_date(date) && date.compare("date") != 0)
-			throw std::runtime_error(std::string("Invalid data input"));
+			throw std::runtime_error(std::string("Error: bad input => " + date));
 		if (date.compare("date") != 0)
 			entries[date] = static_cast<float>(strtod(value.c_str(), NULL));
 	}
@@ -51,6 +51,8 @@ bool BitcoinExchange::valid_date(std::string date) {
 	struct tm tm;
 
 	if (strptime(date.c_str(), "%Y-%m-%d", &tm) == NULL)
+		return (false);
+	if (tm.tm_mday < 1 && tm.tm_year < 2009)
 		return (false);
 	return (true);
 }
