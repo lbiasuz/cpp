@@ -56,3 +56,17 @@ bool BitcoinExchange::valid_date(std::string date) {
 		return (false);
 	return (true);
 }
+
+bool BitcoinExchange::valid_input(std::string date, std::string value) {
+	if (!this->valid_date(date)) {
+		std::cout << "Error: bad input => " << date << std::endl;
+		return (false);
+	} else if (std::strtod(value.c_str(), NULL) < 0) {
+		std::cout << "Error: not a positive number"<< std::endl;
+		return (false);
+	} else if (std::strtod(value.c_str(), NULL) > 2147483647.0) {
+		std::cout << "Error: too large a number"<< std::endl;
+		return (false);
+	}
+	return (true);
+}

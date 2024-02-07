@@ -12,6 +12,7 @@ class BitcoinExchange {
 
 	public:
 		bool valid_date(std::string date);
+		bool valid_input(std::string date, std::string value);
 		float search(std::string date);
 		BitcoinExchange(std::ifstream &in);
 		BitcoinExchange(const BitcoinExchange &old);
