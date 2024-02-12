@@ -13,7 +13,9 @@ class RPN {
 		~RPN(void);
 		RPN &	operator=(const RPN & rpn);
 		bool	is_valid_input();
-		int		calculate(char *arg);
+		void	initialize_data(char *argv);
+		int		calculate(void);
+
 };
 
 #endif

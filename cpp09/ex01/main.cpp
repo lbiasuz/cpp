@@ -13,7 +13,10 @@ int	main(int argc, char **argv) {
 		return (1);
 	}
 	try {
-		std::cout << rpn.calculate(argv[1]) << std::endl;
+		rpn.initialize_data(argv[1]);
+		if (!rpn.is_valid_input())
+			throw std::runtime_error("Error: Invalid input;");
+		std::cout << rpn.calculate() << std::endl;
 	} catch (std::exception & e) {
 		std::cout << e.what() << std::endl;
 	}
