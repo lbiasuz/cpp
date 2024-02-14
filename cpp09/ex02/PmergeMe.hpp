@@ -8,7 +8,10 @@ class PMergeMe {
 		PMergeMe(const PMergeMe & pme);
 		PMergeMe & operator=(const PMergeMe & pme);
 		~PMergeMe(void);
-		void sort(void);
+		void insertionSort(std::vector<int> a);
+		void insertionSort(std::deque<int> a);
+		void sortVector(void);
+		void sortDeque(void);
 		void display(void);
 
 	private:
