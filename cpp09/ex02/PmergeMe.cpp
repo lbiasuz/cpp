@@ -41,17 +41,16 @@ PMergeMe & PMergeMe::operator=(const PMergeMe & pme) {
 	return (*this);
 }
 
-void PMergeMe::insertionSort(std::vector<int> v) {
+void PMergeMe::insertionSort(std::vector<int> &v) {
 	std::vector<int>::iterator head;
 	std::vector<int>::iterator cmp;
-	int	placeholder = 0;
 
 	head = v.begin() + 1;
 	while (head != v.end())
 	{
-		cmp == head - 1;
-		placeholder = *head;
-		while (cmp >= v.begin() && *cmp > placeholder) {
+		int	placeholder = *head;
+		cmp = head - 1;
+		while (cmp > v.begin() && *cmp > placeholder) {
 			*(cmp + 1) = *cmp;
 			--cmp;
 		}
@@ -60,75 +59,132 @@ void PMergeMe::insertionSort(std::vector<int> v) {
 	}
 }
 
-void PMergeMe::insertionSort(std::deque<int> v) {
+void PMergeMe::insertionSort(std::deque<int> &v) {
 	std::deque<int>::iterator head;
 	std::deque<int>::iterator cmp;
-	int	placeholder;
 
-	head = v.begin()++;
+	head = v.begin();
 	while (head != v.end())
 	{
-		cmp == head - 1;
-		placeholder = *head;
+		int	placeholder = *head;
+		cmp = head;
 		while (cmp >= v.begin() && *cmp > placeholder) {
-			*(cmp + 1) = *cmp;
-			--cmp;
+			*cmp = *(cmp - 1);
+			cmp--;
 		}
-		*(cmp + 1) = placeholder;
+		*cmp = placeholder;
 		++head;
 	}
 }
 
-void PMergeMe::sortVector(void) {
-	std::vector<int> a(this->vec.begin(), this->vec.begin() + this->vec.size() / 2);
-	std::vector<int> b(this->vec.begin() + this->vec.size() / 2, this->vec.end());
+void PMergeMe::merge(std::vector<int> &a, std::vector<int> &b, std::vector<int> &v) {
+	std::vector<int>::iterator ita = a.begin();
+	std::vector<int>::iterator itb = b.begin();
 
-	this->insertionSort(a);
-	this->insertionSort(b);
-
-	std::merge(a.begin(), a.end(), b.begin(), b.end(), this->vec.begin());
+	while (ita != a.end() && itb != b.end()) {
+		if (*ita < *itb) {
+			v.push_back(*ita);
+			ita++;
+		} else {
+			v.push_back(*itb);
+			itb++;
+		}
+	}
+	while (ita != a.end()) {
+		v.push_back(*ita);
+		ita++;
+	}
+	while (itb != b.end()) {
+		v.push_back(*itb);
+		itb++;
+	}
 }
 
-void PMergeMe::sortDeque(void) {
-	std::deque<int> a(this->vec.begin(), this->vec.begin() + this->vec.size() / 2);
-	std::deque<int> b(this->vec.begin() + this->vec.size() / 2, this->vec.end());
+void PMergeMe::merge(std::deque<int> &a, std::deque<int> &b, std::deque<int> &v) {
+	std::deque<int>::iterator ita = a.begin();
+	std::deque<int>::iterator itb = b.begin();
 
-	this->insertionSort(a);
-	this->insertionSort(b);
+	while (ita != a.end() && itb != b.end()) {
+		if (*ita < *itb) {
+			v.push_back(*ita);
+			ita++;
+		} else {
+			v.push_back(*itb);
+			itb++;
+		}
+	}
+	while (ita != a.end()) {
+		v.push_back(*ita);
+		ita++;
+	}
+	while (itb != b.end()) {
+		v.push_back(*itb);
+		itb++;
+	}
+}
 
-	std::merge(a.begin(), a.end(), b.begin(), b.end(), this->vec.begin());
+void PMergeMe::sortVector(std::vector<int> & v) {
+	if (v.size() <= 1)
+		insertionSort(v);
+
+	else {
+		std::vector<int> a(v.begin(), v.begin() + (v.size() / 2));
+		std::vector<int> b(v.begin() + (v.size() / 2), v.end());
+
+		this->sortVector(a);
+		this->sortVector(b);
+
+		v.clear();
+
+		merge(a, b, v);
+	}
+}
+
+void PMergeMe::sortDeque(std::deque<int> & v) {
+	if (v.size() <= 1)
+		insertionSort(v);
+
+	else {
+		std::deque<int> a(v.begin(), v.begin() + (v.size() / 2));
+		std::deque<int> b(v.begin() + (v.size() / 2), v.end());
+
+		this->sortDeque(a);
+		this->sortDeque(b);
+
+		v.clear();
+
+		merge(a, b, v);
+	}
 }
 
 void PMergeMe::display(void) {
 	int i = 0;
 
-	std::cout << "Before: ";
+	std::cout << "Before:";
 	while (this->argv[++i] != NULL)
-		std::cout << this->argv[i] << " ";
+		std::cout << " " << this->argv[i];
 	std::cout << ";" << std::endl;
 
 	clock_t start = clock();
-	this->sortVector();
+	this->sortVector(this->vec);
 	clock_t finish = clock();
 
 	std::vector<int>::iterator iter = this->vec.begin();
-	std::cout << "After: ";
+	std::cout << "After:";
 	while (iter != this->vec.end())
 	{
-		std::cout << *iter << " ";
+		std::cout << " " << *iter ;
 		iter++;
 	}
 	std::cout << ";" << std::endl;
 
 	std::cout << "Time to process a range of " << this->vec.size()
-			 << "with std::vector<int>: "<< (finish - start) << std::endl;
+			 << " with std::vector<int> : "<< (finish - start) << std::endl;
 
 	start = clock();
-	this->sortDeque();
+	this->sortDeque(this->deq);
 	finish = clock();
 
 	std::cout << "Time to process a range of " << this->deq.size()
-			 << "with std::vector<int>: "<< (finish - start) << std::endl;
-
-
+			 << "with std::deque<int>: "<< (finish - start) << std::endl;
 }
