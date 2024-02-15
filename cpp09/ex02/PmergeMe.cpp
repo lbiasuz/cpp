@@ -50,7 +50,7 @@ void PMergeMe::insertionSort(std::vector<int> &v) {
 	{
 		int	placeholder = *head;
 		cmp = head - 1;
-		while (cmp > v.begin() && *cmp > placeholder) {
+		while (cmp >= v.begin() && *cmp > placeholder) {
 			*(cmp + 1) = *cmp;
 			--cmp;
 		}
@@ -124,7 +124,7 @@ void PMergeMe::merge(std::deque<int> &a, std::deque<int> &b, std::deque<int> &v)
 }
 
 void PMergeMe::sortVector(std::vector<int> & v) {
-	if (v.size() <= 1)
+	if (v.size() <= 5)
 		insertionSort(v);
 
 	else {
@@ -179,12 +179,12 @@ void PMergeMe::display(void) {
 	std::cout << ";" << std::endl;
 
 	std::cout << "Time to process a range of " << this->vec.size()
-			 << " with std::vector<int> : "<< (finish - start) << std::endl;
+			 << " with std::vector<int>: "<< (finish - start) / (double) CLOCKS_PER_SEC << "s" << std::endl;
 
 	start = clock();
 	this->sortDeque(this->deq);
 	finish = clock();
 
 	std::cout << "Time to process a range of " << this->deq.size()
-			 << "with std::deque<int>: "<< (finish - start) << std::endl;
+			 << " with std::deque<int>: "<< (finish - start) / (double) CLOCKS_PER_SEC << "s" << std::endl;
 }
