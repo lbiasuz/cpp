@@ -7,21 +7,14 @@
 class ScalarConverter {
 
 	private:
-		std::string	_input;
-		char		_char;
-		int			_int;
-		float		_float;
-		double		_double;
-		bool		_converted;
-
-	public:
 		ScalarConverter(void);
 		ScalarConverter(ScalarConverter const &old);
 		ScalarConverter &operator=(ScalarConverter const &old);
 		~ScalarConverter(void);
 
-		void	convert(std::string str);
-		void	print(void) const;
+	public:
+		static	void	convert(std::string str);
+		static	void	print(double _double, float _float, int _int, char _char);
 };
 
 #endif
