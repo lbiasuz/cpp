@@ -17,6 +17,7 @@ int	main(void) {
 	// Assign and access test
 	arr2[3] = 33333;
 	std::cout << arr2[3] << std::endl;
+	std::cout << arr2.getSize() << std::endl;
 
 	// Copy and copy assign test
 	arr2 = arr;
