@@ -24,4 +24,7 @@ int	main(void) {
 	Array<int> arr3(2);
 	arr = arr3;
 	arr3 = arr2;
+
+	const Array<int> arr4(3);
+	std::cout << arr4[2] << std::endl;
 }

@@ -55,6 +55,13 @@ class Array {
 			return (this->arr[i]);
 		}
 
+		const T& operator[](size_t i) const {
+			if (!this->arr || i >= this->size) {
+				throw (std::out_of_range("Array index out of range"));
+			}
+			return (this->arr[i]);
+		}
+
 		size_t getSize(void) const {
 			return (this->size);
 		}
