@@ -27,7 +27,7 @@ int	main(int argc, char **argv) {
 		if (!date.compare("date"))
 			continue;
 		else if (exc.valid_input(date, value))
-			std::cout << date << " => " << value << " = " << exc.search(date) * static_cast<float>(std::strtod(value.c_str(), NULL)) << "\n";
+			std::cout << date << " => " << value << " = " << std::fixed << exc.search(date) * static_cast<float>(std::strtod(value.c_str(), NULL)) << "\n";
 	}
 	return (0);
 }

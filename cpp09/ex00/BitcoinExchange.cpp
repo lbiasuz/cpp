@@ -52,7 +52,7 @@ bool BitcoinExchange::valid_date(std::string date) {
 
 	if (strptime(date.c_str(), "%Y-%m-%d", &tm) == NULL)
 		return (false);
-	if (tm.tm_mday < 1 && tm.tm_year < 2009)
+	if (tm.tm_year < 109 || (tm.tm_year < 110 && tm.tm_yday < 1))
 		return (false);
 	return (true);
 }
