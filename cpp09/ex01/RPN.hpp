@@ -1,21 +1,19 @@
 #ifndef RPN_HPP
 # define RPN_HPP
-# include <list>
+# include <stack>
 # include <string>
 
 class RPN {
 	private:
-		std::list<std::string> lst;
+		std::stack<int> stk;
 
 	public:
 		RPN(void);
 		RPN(const RPN & rpn);
 		~RPN(void);
 		RPN &	operator=(const RPN & rpn);
-		bool	is_valid_input();
-		void	initialize_data(char *argv);
-		int		calculate(void);
-
+		bool	is_valid_input(char *argv);
+		int		calculate(char **argv);
 };
 
 #endif

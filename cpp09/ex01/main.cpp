@@ -7,16 +7,13 @@ int	main(int argc, char **argv) {
 
 	RPN rpn;
 
-	if (argc != 2) 
+	if (argc % 2 == 1)
 	{
-		std::cout << "Error: Wrong number of arguments";
+		std::cout << "Error: Wrong number of arguments" << std::endl;
 		return (1);
 	}
 	try {
-		rpn.initialize_data(argv[1]);
-		if (!rpn.is_valid_input())
-			throw std::runtime_error("Error: Invalid input;");
-		std::cout << rpn.calculate() << std::endl;
+		std::cout << rpn.calculate(&argv[1]) << std::endl;
 	} catch (std::exception & e) {
 		std::cout << e.what() << std::endl;
 	}

@@ -8,79 +8,54 @@
 RPN::RPN(void) {}
 RPN::~RPN(void) {}
 RPN::RPN(const RPN & rpn) {
-	this->lst = rpn.lst;
+	this->stk = rpn.stk;
 }
 RPN & RPN::operator=(const RPN & rpn) {
-	this->lst = rpn.lst;
+	this->stk = rpn.stk;
 	return (*this);
 }
 
-bool	RPN::is_valid_input(void) {
-	std::list<std::string>::iterator iter;
-	int value;
-
-	if (this->lst.size() % 2 == 1 || this->lst.size() < 3)
-		return (false);
-	
-	iter = this->lst.begin();
-	while (iter != this->lst.end()) {
-		std::istringstream iss(*iter);
-		iss >> value;
-
-		if (iss.fail()
-			&& iter->compare("*")
-			&& iter->compare("/")
-			&& iter->compare("-")
-			&& iter->compare("+")
-			&& iter->compare(""))
-			return (false);
-		++iter;
-	}
-	return (true); 
+bool	RPN::is_valid_input(char *argv) {
+	if (argv[0] >= 48 && argv[0] <= 57)
+		return (true);
+	else if (argv[0] == '+' || argv[0] == '-' || argv[0] == '/' || argv[0] == '*')
+		return (true);
+	return (false);
 }
 
-void	RPN::initialize_data(char *argv) {
-	size_t		pos = 0;
-	std::string	separator = " ";
-	std::string	input(argv);
-	std::string	value;
-
-	pos = input.find(separator);
-	while (pos != std::string::npos)
-	{
-		value = input.substr(0, pos);
-		this->lst.push_back(value);
-		input.erase(0, pos + separator.length());
-		pos = input.find(separator);
-	}
-	this->lst.push_back(input);
-	this->lst.push_back("");
-}
-
-int		RPN::calculate(void) {
-	int	acum;
+int		RPN::calculate(char **argv) {
 	int v1;
 
-	acum = static_cast<int>(std::strtod(this->lst.front().c_str(), NULL));
-	this->lst.pop_front();
-	while (this->lst.front() != this->lst.back() && this->lst.front().compare(""))
+	for (int i = 0; argv[i] != NULL; i++)
 	{
-		std::istringstream iss(this->lst.front());
-		iss >> v1;
+		if (!this->is_valid_input(argv[i]))
+			throw std::invalid_argument(std::string("Argumento inválido"));
 
-		this->lst.pop_front();
-		if (!this->lst.front().compare("+"))
-			acum += v1;
-		else if (!this->lst.front().compare("-"))
-			acum -= v1;
-		else if (!this->lst.front().compare("*"))
-			acum *= v1;
-		else if (!this->lst.front().compare("/"))
+		if (argv[i][0] == '+' && !this->stk.empty()) {
+			v1 = this->stk.top();
+			this->stk.pop();
+			this->stk.top() += v1;
+		}
+		else if (argv[i][0] == '-' && !this->stk.empty()) {
+			v1 = this->stk.top();
+			this->stk.pop();
+			this->stk.top() -= v1;
+		}
+		else if (argv[i][0] == '*' && !this->stk.empty()) {
+			v1 = this->stk.top();
+			this->stk.pop();
+			this->stk.top() *= v1;
+		}
+		else if (argv[i][0] == '/' && !this->stk.empty())
 		{
-			if (v1 == 0)
+			if (this->stk.top() == 0)
 				throw std::runtime_error(std::string("Error: Division by zero;"));
-			acum /= v1;
+			v1 = this->stk.top();
+			this->stk.pop();
+			this->stk.top() /= v1;
+		} else {
+			this->stk.push(std::strtod(argv[i], NULL));
 		}
 	}
-	return (acum);
+	return (this->stk.top());
 }
